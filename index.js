@@ -1,10 +1,10 @@
 const webpack = require('webpack');
 const getWebpackConfig = require('./get-webpack-config.js');
-const webpackConfig = getWebpackConfig();
 
 module.exports = function () {
   process.env.NODE_ENV = 'production';
-
+  
+  const webpackConfig = getWebpackConfig();
   webpack(webpackConfig, (err, stats) => { // Stats Object
     if (err) {
       console.log(err.stack || err);

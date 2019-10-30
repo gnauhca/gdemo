@@ -2,11 +2,10 @@ const express = require('express');
 const webpack = require('webpack');
 const middleware = require('webpack-dev-middleware');
 const getWebpackConfig = require('./get-webpack-config.js');
-const webpackConfig = getWebpackConfig();
 
 module.exports = function () {
 
-
+  const webpackConfig = getWebpackConfig();
   const compiler = webpack(webpackConfig);
   const app = express();
 
