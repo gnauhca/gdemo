@@ -9,6 +9,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const userWebpackConfigPath = path.join(workDir, 'webpack.config.js');
 const webpackMerge = require('webpack-merge');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const root = __dirname;
 
 function resolveWorkDir(p) {
   return path.resolve(workDir, p);
@@ -55,7 +56,14 @@ let config = function() {
             presets: [require.resolve('@babel/preset-env')],
             plugins: [require.resolve('@babel/plugin-proposal-class-properties')]
           },
-          exclude: /node_modules/
+          exclude: (file) => {
+            if (/node_modules/.test(file)) {
+              if (file.indexOf(root) > -1 && file.indexOf('node_modules') === file.lastIndexOf('node_modules')) {
+                return false;
+              }
+              return true;
+            }
+          },
         },
         {
           test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/,
